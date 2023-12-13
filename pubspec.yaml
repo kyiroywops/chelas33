@@ -23,6 +23,7 @@ flutter:
   assets:
     - assets/images/
     - assets/images/reglas/
+    - assets/images/avatars/
 
   fonts:
     - family: ReadexPro
