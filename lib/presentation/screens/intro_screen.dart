@@ -8,54 +8,37 @@ class IntroScreen extends StatefulWidget {
 }
 
 class _IntroScreenState extends State<IntroScreen> {
-  final introKey = GlobalKey<IntroductionScreenState>();
-
   void _onIntroEnd(context) {
     context.go('/playerSelection');
   }
 
   Widget _buildImage(String assetName) {
-    return Align(
-      child: Image.asset('assets/images/$assetName', width: 350.0),
-      alignment: Alignment.bottomCenter,
-    );
-  }
-
-  ButtonStyle _buttonStyle() {
-    return ButtonStyle(
-      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(18.0),
-        ),
-      ),
-      backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
-      foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-    );
+    return Image.asset('assets/images/$assetName', width: 350.0);
   }
 
   @override
   Widget build(BuildContext context) {
-    const bodyStyle = TextStyle(fontSize: 19.0);
     const pageDecoration = PageDecoration(
       titleTextStyle: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
-      bodyTextStyle: bodyStyle,
-      pageColor: Color(0xFF8CE7F1),
+      bodyTextStyle: TextStyle(fontSize: 19.0),
       imagePadding: EdgeInsets.zero,
+      pageColor: Color(0xFF8CE7F1),
     );
 
     return IntroductionScreen(
-      key: introKey,
-      globalBackgroundColor: Color(0xFF8CE7F1),
+      key: GlobalKey<IntroductionScreenState>(),
       pages: [
         PageViewModel(
-          title: "Regla 1",
-          body: "Aquí va la explicación de la primera regla.",
-          image: _buildImage('reglas/regla1.png'),
+          titleWidget: _buildTitleWidget(0),
+          bodyWidget: _buildBodyWidget('Regla 1', 'Aquí va la explicación de la primera regla.', 'reglas/regla1.png'),
           decoration: pageDecoration,
         ),
-        // ... Repite para las reglas 2 y 3
+        // Repite para las reglas 2 y 3
       ],
       onDone: () => _onIntroEnd(context),
+      onChange: (index) {
+        // Aquí podrías cambiar el estado basado en el índice de la página si fuera necesario
+      },
       showSkipButton: false,
       next: const Icon(Icons.arrow_forward),
       done: const Text('Empezar', style: TextStyle(fontWeight: FontWeight.w600)),
@@ -69,13 +52,53 @@ class _IntroScreenState extends State<IntroScreen> {
         ),
       ),
       showNextButton: true,
-      nextStyle: _buttonStyle(),
-      doneStyle: _buttonStyle(),
-      onSkip: () => _onIntroEnd(context),
       showDoneButton: true,
+      globalBackgroundColor: Color(0xFF8CE7F1),
       controlsMargin: EdgeInsets.all(16),
       controlsPadding: EdgeInsets.all(16),
       curve: Curves.fastOutSlowIn,
+    );
+  }
+
+  Widget _buildTitleWidget(int pageIndex) {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            GestureDetector(
+              onTap: () => _onIntroEnd(context),
+              child: Icon(Icons.close, color: Colors.black),
+            ),
+            if (pageIndex == 0) // Asumiendo que el logo solo se muestra en la primera página
+              Image.asset('assets/images/logo.png', width: 100), // Reemplaza con tu logo
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBodyWidget(String title, String body, String imageName) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        SizedBox(height: 100), // Espacio para el logo y la 'X'
+        Text(
+          title,
+          style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height: 24), // Espacio entre el título y la imagen
+        _buildImage(imageName), // La imagen de la regla
+        SizedBox(height: 24), // Espacio entre la imagen y la descripción
+        Text(
+          body,
+          style: TextStyle(fontSize: 19.0),
+          textAlign: TextAlign.center,
+        ),
+      ],
     );
   }
 }
