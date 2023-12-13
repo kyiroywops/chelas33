@@ -8,13 +8,18 @@ class IntroScreen extends StatefulWidget {
 }
 
 class _IntroScreenState extends State<IntroScreen> {
-  void _onIntroEnd(context) {
-    context.go('/playerSelection');
-  }
+  void _onIntroEnd() {
+  GoRouter.of(context).go('/playerSelection');
+}
+ 
 
-  Widget _buildImage(String assetName) {
-    return Image.asset('assets/images/$assetName', width: 350.0);
-  }
+
+Widget _buildImage(String assetName) {
+  return ClipRRect(
+    borderRadius: BorderRadius.circular(95.0), // Aumenta este valor para bordes más redondeados
+    child: Image.asset('assets/images/$assetName', width: 350.0),
+  );
+}
 
   @override
   Widget build(BuildContext context) {
@@ -30,18 +35,66 @@ class _IntroScreenState extends State<IntroScreen> {
       pages: [
         PageViewModel(
           titleWidget: _buildTitleWidget(0),
-          bodyWidget: _buildBodyWidget('Regla 1', 'Aquí va la explicación de la primera regla.', 'reglas/regla1.png'),
+          bodyWidget: _buildBodyWidget('¿Como se juega?', 'Al juntar las 4 Kaisers en la partida se termina el juego.', 'reglas/regla2.png'),
+          decoration: pageDecoration,
+        ),
+         PageViewModel(
+          titleWidget: _buildTitleWidget(0),
+          bodyWidget: _buildBodyWidget('Regla 2', 'Aquí va la explicación de la primera regla.', 'reglas/regla1.png'),
+          decoration: pageDecoration,
+        ),
+         PageViewModel(
+          titleWidget: _buildTitleWidget(0),
+          bodyWidget: _buildBodyWidget('Regla 3', 'Aquí va la explicación de la primera regla.', 'reglas/regla3.png'),
           decoration: pageDecoration,
         ),
         // Repite para las reglas 2 y 3
       ],
-      onDone: () => _onIntroEnd(context),
+      onDone: () => _onIntroEnd(),
       onChange: (index) {
         // Aquí podrías cambiar el estado basado en el índice de la página si fuera necesario
       },
+      skip: const Text(
+        'Skip',
+        style: TextStyle(color: Colors.black), // Cambia el color y el estilo según el diseño
+      ),
       showSkipButton: false,
-      next: const Icon(Icons.arrow_forward),
-      done: const Text('Empezar', style: TextStyle(fontWeight: FontWeight.w600)),
+      next: Container(
+        width: 300, // Ancho del botón
+        height: 50, // Altura del botón
+        decoration: BoxDecoration(
+          color: Colors.black, // Color de fondo del botón
+          borderRadius: BorderRadius.circular(30), // Esquinas redondeadas del botón
+        ),
+        child: const Center(
+          child: Text(
+            'Siguiente',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: Colors.white, // Color del texto
+            ),
+          ),
+        ),
+      ),
+      done: Container(
+        width: 110, // Ancho del botón
+        height: 50, // Altura del botón
+        decoration: BoxDecoration(
+          color: Colors.black, // Color de fondo del botón
+          borderRadius: BorderRadius.circular(30), // Esquinas redondeadas del botón
+        ),
+        child: Center(
+          child: Text(
+            'Empezar',
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: Colors.white, // Color del texto
+            ),
+          ),
+        ),
+      ),
       dotsDecorator: const DotsDecorator(
         size: Size(10.0, 10.0),
         color: Color(0xFFBDBDBD),
@@ -68,7 +121,7 @@ class _IntroScreenState extends State<IntroScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             GestureDetector(
-              onTap: () => _onIntroEnd(context),
+              onTap: () => _onIntroEnd(),
               child: Icon(Icons.close, color: Colors.black),
             ),
             if (pageIndex == 0) // Asumiendo que el logo solo se muestra en la primera página
@@ -84,10 +137,16 @@ class _IntroScreenState extends State<IntroScreen> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        SizedBox(height: 100), // Espacio para el logo y la 'X'
         Text(
           title,
-          style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontSize: 28.0, 
+            fontWeight: FontWeight.w900,
+            fontFamily: 'ReadexPro'
+            
+            
+            
+            ),
           textAlign: TextAlign.center,
         ),
         SizedBox(height: 24), // Espacio entre el título y la imagen
@@ -95,10 +154,16 @@ class _IntroScreenState extends State<IntroScreen> {
         SizedBox(height: 24), // Espacio entre la imagen y la descripción
         Text(
           body,
-          style: TextStyle(fontSize: 19.0),
+          style: TextStyle(
+            fontSize: 19.0,
+            fontFamily: 'ReadexPro',
+            fontWeight: FontWeight.w600),
           textAlign: TextAlign.center,
         ),
+         SizedBox(height: 24), // Ajusta este espacio según tus necesidades
+         // Agrega el botón aquí
       ],
     );
   }
 }
+
