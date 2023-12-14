@@ -116,6 +116,7 @@ Widget _buildImage(String assetName) {
   Widget _buildTitleWidget(int pageIndex) {
     return SafeArea(
       bottom: false,
+      
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Row(

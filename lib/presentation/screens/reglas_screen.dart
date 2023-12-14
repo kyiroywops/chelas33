@@ -27,25 +27,29 @@ class ReglasScreen extends ConsumerWidget {
       backgroundColor: Color(0xFF002D40),
       body: Column(
         children: [
-          SafeArea(
-            bottom: false,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(40, 20, 40, 0),
+          
+            
+            
+            Padding(
+              padding: const EdgeInsets.fromLTRB(40, 80, 40, 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Regla de cartas',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w800,
-                      color: Color(0xffFF414D),
-                      fontFamily: 'Lexend',
+                  IconButton(
+                    icon: Icon(Icons.arrow_back_ios, color: Colors.white,
+                    size: 20,
                     
-                      fontSize: 20,
                     ),
+                    onPressed: () {
+
+                       GoRouter.of(context).go('/playerSelection');
+                      // Aquí colocas tu acción para regresar
+                    },
                   ),
+                  
                   Row(
                     children: [
+                      
                       ElevatedButton(
                         onPressed: () {
                           // Acción para editar reglas
@@ -55,38 +59,60 @@ class ReglasScreen extends ConsumerWidget {
                           style: TextStyle(
                             color: Color(0xFF002D40), // Color del texto
                             fontFamily: 'Lexend',
-                            fontSize: 8,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 10,
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.white, // Color de fondo del botón
-                          onPrimary: Color(0xFF002D40), // Color del texto/icono cuando está en reposo
-                          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                          backgroundColor: Colors.white, // Color de fondo del botón
+                          foregroundColor: Color(0xFF002D40), // Color del texto/icono cuando está en reposo
+                          padding: EdgeInsets.symmetric(horizontal: 11, vertical: 8),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18), // Borde redondeado
                           ),
                           minimumSize: Size(5, 5), // Tamaño mínimo del botón
                         ),
                       ),
-                      SizedBox(width: 0), // Espacio entre botones
-                      IconButton(
-                        icon: Icon(Icons.help, color: Color(0xFF002D40)), // Color del ícono
-                        onPressed: () {
-                          // Acción para mostrar ayuda
-                        },
-                        constraints: BoxConstraints(), // Restricciones para hacer el botón más pequeño
-                        padding: EdgeInsets.all(2), // Padding interno del botón
-                        iconSize: 10, // Tamaño del ícono
+                      SizedBox(width: 5), // Espacio entre botones
+                     ElevatedButton.icon(
+                      onPressed: (
+                        
+                        
+                      ) {
+                        GoRouter.of(context).go('/');
+                      },
+                      icon: Icon(
+                        Icons.hiking_rounded, // Ícono para el tutorial
+                        size: 15, // Ajusta el tamaño del ícono para que coincida con el estilo general
                       ),
+                      label: Text(
+                        'Tutorial',
+                        style: TextStyle(
+                          color: Colors.black, // Color del texto
+                          fontSize: 10, // Asegúrate de que el tamaño del texto coincida con el del botón "Editar reglas"
+                          fontFamily: 'Lexend',
+                          fontWeight: FontWeight.w600
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white, // Color de fondo del botón
+                        foregroundColor: Colors.black, // Color del texto e ícono en estado de reposo
+                        padding: EdgeInsets.symmetric(horizontal: 11, vertical: 8), // Mismo relleno que el botón "Editar reglas"
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18), // Bordes redondeados del botón
+                        ),
+                        minimumSize: Size(5, 5), // Tamaño mínimo del botón, ajusta según sea necesario para que coincida con el otro botón
+                      ),
+                    )
                     ],
                   ),
                 ],
               ),
             ),
-          ),
+          
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(30, 30, 30, 30),
+              padding: const EdgeInsets.fromLTRB(30, 30, 30, 29),
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.black.withOpacity(0.50),
@@ -98,7 +124,7 @@ class ReglasScreen extends ConsumerWidget {
                     String carta = reglas.keys.elementAt(index);
                     String descripcionRegla = reglas.values.elementAt(index);
                     return Padding(
-                      padding: EdgeInsets.fromLTRB(25, 25, 25, 0),
+                      padding: EdgeInsets.fromLTRB(35, index == 0 ? 0 : 25, 35, 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -107,6 +133,7 @@ class ReglasScreen extends ConsumerWidget {
                             style: TextStyle(
                               color: Colors.white,
                               fontFamily: 'Lexend',
+                              fontWeight: FontWeight.w600,
                               fontSize: 18,
                             ),
                           ),
@@ -115,7 +142,7 @@ class ReglasScreen extends ConsumerWidget {
                             style: TextStyle(
                               color: Color(0xffF56A79),
                               fontFamily: 'Lexend',
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w900,
                               fontSize: 20,
                             ),
                           ),
@@ -128,7 +155,7 @@ class ReglasScreen extends ConsumerWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 40.0),
+            padding: const EdgeInsets.fromLTRB(40, 0, 40, 35),
             child: ElevatedButton(
               onPressed: () {
                 context.go('/cardAssignment');
