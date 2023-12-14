@@ -35,17 +35,17 @@ Widget _buildImage(String assetName) {
       pages: [
         PageViewModel(
           titleWidget: _buildTitleWidget(0),
-          bodyWidget: _buildBodyWidget('¿Como se juega?', 'Al juntar las 4 Kaisers en la partida se termina el juego.', 'reglas/regla2.png'),
+          bodyWidget: _buildBodyWidget('¿Como se juega?', 'Sientense alrededor de una mesa, lleven su trago y coloquen un vaso vacio al medio.', 'reglas/regla1.png'),
           decoration: pageDecoration,
         ),
          PageViewModel(
           titleWidget: _buildTitleWidget(0),
-          bodyWidget: _buildBodyWidget('Regla 2', 'Aquí va la explicación de la primera regla.', 'reglas/regla1.png'),
+          bodyWidget: _buildBodyWidget('Juegos', 'Cada vez que te toque el turno del jugador debe robar una carta y empezar el juego.', 'reglas/regla2.png'),
           decoration: pageDecoration,
         ),
          PageViewModel(
           titleWidget: _buildTitleWidget(0),
-          bodyWidget: _buildBodyWidget('Regla 3', 'Aquí va la explicación de la primera regla.', 'reglas/regla3.png'),
+          bodyWidget: _buildBodyWidget('Los 4 Reyes', 'Cada vez que aparezca un kaiser el jugador debe donar un cuarto de su trago en el vaso del medio, el que saque el cuarto kaiser se lo debe tomar al seco y el juego termina.', 'reglas/regla3.png'),
           decoration: pageDecoration,
         ),
         // Repite para las reglas 2 y 3

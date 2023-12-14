@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Tft Sinergy',
+      title: 'Cuarto de Rey',
       debugShowCheckedModeBanner: false,
       routerConfig: appRouter,
       theme: AppTheme().themeData,
