@@ -18,7 +18,7 @@ class ReglasScreen extends ConsumerWidget {
       '10': 'Juego de los patos',
       'J': 'Limones',
       'Q': 'Nunca nunca',
-      'K': 'Todos toman',
+      'K': 'Cuarto de Rey',
       // ... Añade el resto de las cartas y sus reglas
     };
 
@@ -36,8 +36,8 @@ class ReglasScreen extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
-                    icon: Icon(Icons.arrow_back_ios, color: Colors.white,
-                    size: 20,
+                    icon: Icon(Icons.arrow_circle_left_rounded, color: Colors.white,
+                    size: 30,
                     
                     ),
                     onPressed: () {
