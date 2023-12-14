@@ -45,7 +45,7 @@ Widget _buildImage(String assetName) {
         ),
          PageViewModel(
           titleWidget: _buildTitleWidget(0),
-          bodyWidget: _buildBodyWidget('Los 4 Reyes', 'Cada vez que aparezca un kaiser el jugador debe donar un cuarto de su trago en el vaso del medio, el que saque el cuarto kaiser se lo debe tomar al seco y el juego termina.', 'reglas/regla3.png'),
+          bodyWidget: _buildBodyWidget('Los 4 Reyes', 'Cada vez que aparezca un kaiser el jugador debe donar un cuarto de su trago en el vaso del medio, el que saque el cuarto kaiser se lo debe tomar al seco y el juego terminar.', 'reglas/regla3.png'),
           decoration: pageDecoration,
         ),
         // Repite para las reglas 2 y 3
@@ -115,6 +115,7 @@ Widget _buildImage(String assetName) {
 
   Widget _buildTitleWidget(int pageIndex) {
     return SafeArea(
+      bottom: false,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Row(
@@ -133,38 +134,41 @@ Widget _buildImage(String assetName) {
   }
 
   Widget _buildBodyWidget(String title, String body, String imageName) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 28.0, 
-            fontWeight: FontWeight.w900,
-            fontFamily: 'ReadexPro',
-            color:Color(0xFF1AA6B7)
+    return Padding(
+      padding: const EdgeInsets.all(30.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 28.0, 
+              fontWeight: FontWeight.w900,
+              fontFamily: 'ReadexPro',
+              color:Color(0xFF1AA6B7)
+              
+              
+              
+              ),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height:50), // Espacio entre el título y la imagen
+          _buildImage(imageName), // La imagen de la regla
+          SizedBox(height: 24), // Espacio entre la imagen y la descripción
+          Text(
+            body,
+            style: TextStyle(
+              fontSize: 19.0,
+              fontFamily: 'ReadexPro',
+              fontWeight: FontWeight.w600,
+              color:Color(0xFF1AA6B7)),
+            textAlign: TextAlign.center,
             
-            
-            
-            ),
-          textAlign: TextAlign.center,
-        ),
-        SizedBox(height:50), // Espacio entre el título y la imagen
-        _buildImage(imageName), // La imagen de la regla
-        SizedBox(height: 24), // Espacio entre la imagen y la descripción
-        Text(
-          body,
-          style: TextStyle(
-            fontSize: 19.0,
-            fontFamily: 'ReadexPro',
-            fontWeight: FontWeight.w600,
-            color:Color(0xFF1AA6B7)),
-          textAlign: TextAlign.center,
-          
-        ),
-         // Agrega el botón aquí
-      ],
+          ),
+           // Agrega el botón aquí
+        ],
+      ),
     );
   }
 }

@@ -43,10 +43,12 @@ class _PlayerSelectionScreenState extends ConsumerState<PlayerSelectionScreen> {
     }
 
     return Scaffold(
+      backgroundColor: Color(0xFF002D40),
       appBar: AppBar(
+        backgroundColor: Color(0xFF002D40),
         title: Text(
           'Selecciona tus jugadores',
-          style: TextStyle(fontWeight: FontWeight.w800, fontFamily: 'ReadexPro'
+          style: TextStyle(fontWeight: FontWeight.w800, fontFamily: 'ReadexPro', color: Color(0xFF1AA6B7)
 
               // Aplica negrita al texto
               // Puedes añadir más estilos si lo deseas, como el tamaño de la fuente o el color
@@ -54,42 +56,45 @@ class _PlayerSelectionScreenState extends ConsumerState<PlayerSelectionScreen> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(40.0),
         child: Column(
           children: [
-            Container(
-              margin: EdgeInsets.symmetric(
-                  vertical: 8.0), // Agrega márgenes verticales si es necesario
-              padding: EdgeInsets.symmetric(
-                  horizontal: 20.0,
-                  vertical:
-                      15.0), // Aumenta el padding para un container más grande
-              decoration: BoxDecoration(
-                color: Colors.black, // Fondo negro para el container
-                borderRadius: BorderRadius.circular(
-                    30), // Bordes redondeados para el container
-              ),
-              child: TextField(
-                controller: _nameController,
-                style: TextStyle(
-                    color: Colors.white), // Texto blanco para el input
-                cursorColor: Colors.white, // Color del cursor a blanco
-                decoration: InputDecoration(
-                  hintText: 'Nombre del jugador',
-                  hintStyle: TextStyle(
-                      color: Colors.white
-                          .withOpacity(0.5)), // Hint en blanco con opacidad
-                  border: InputBorder.none, // Sin borde
-                  focusedBorder: UnderlineInputBorder(
-                      // Borde cuando el TextField está enfocado
-                      ),
-                  enabledBorder: UnderlineInputBorder(
-                    // Borde cuando el TextField está habilitado, pero no enfocado
-                  
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                margin: EdgeInsets.symmetric(
+                    vertical: 8.0), // Agrega márgenes verticales si es necesario
+                padding: EdgeInsets.symmetric(
+                    horizontal: 30.0,
+                    vertical:
+                        15.0), // Aumenta el padding para un container más grande
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.60), // Fondo negro para el container
+                  borderRadius: BorderRadius.circular(
+                      30), // Bordes redondeados para el container
+                ),
+                child: TextField(
+                  controller: _nameController,
+                  style: const TextStyle(
+                      color: Colors.white), // Texto blanco para el input
+                  cursorColor: Colors.white, // Color del cursor a blanco
+                  decoration: InputDecoration(
+                    hintText: 'Nombre del jugador',
+                    hintStyle: TextStyle(
+                        color: Colors.white
+                            .withOpacity(0.5)), // Hint en blanco con opacidad
+                    border: InputBorder.none, // Sin borde
+                    focusedBorder: UnderlineInputBorder(
+                        // Borde cuando el TextField está enfocado
+                        ),
+                    enabledBorder: UnderlineInputBorder(
+                      // Borde cuando el TextField está habilitado, pero no enfocado
+                    
+                    ),
+                    contentPadding: EdgeInsets.symmetric(
+                        vertical:
+                            10), // Padding vertical para el texto dentro del input
                   ),
-                  contentPadding: EdgeInsets.symmetric(
-                      vertical:
-                          10), // Padding vertical para el texto dentro del input
                 ),
               ),
             ),
@@ -97,28 +102,39 @@ class _PlayerSelectionScreenState extends ConsumerState<PlayerSelectionScreen> {
             Expanded(
               child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 8, // Ajusta según el diseño de tu UI
+                  crossAxisCount: 7, // Ajusta según el diseño de tu UI
                   crossAxisSpacing: 10, // Espaciado horizontal
                   mainAxisSpacing: 10, // Espaciado vertical
                 ),
-                itemCount: 16, // Asume que tienes 20 avatares
+                itemCount: 21, // Asume que tienes 20 avatares
                 itemBuilder: (context, index) {
                   String avatarAsset =
                       'assets/images/avatars/avatar${index + 1}.png';
-                  return GestureDetector(
+                  bool isSelected = _selectedAvatar == avatarAsset;
+
+                   return GestureDetector(
                     onTap: () {
                       setState(() {
-                        _selectedAvatar =
-                            avatarAsset; // Actualiza el avatar seleccionado
+                        _selectedAvatar = avatarAsset; // Actualiza el avatar seleccionado
                       });
                     },
-                    child: ClipOval(
-                      child: Image.asset(
-                        avatarAsset,
-                        width: 10, // Ajusta el tamaño del avatar
-                        height: 10, // Ajusta el tamaño del avatar
-                        fit: BoxFit
-                            .cover, // Esto asegura que la imagen llene el ClipOval
+                    child: Container(
+                      decoration: isSelected
+                          ? BoxDecoration(
+                              border: Border.all(
+                                color: Color(0xffF56A79), // Color del borde cuando está seleccionado
+                                width: 3, // Ancho del borde
+                              ),
+                              shape: BoxShape.circle, // Forma circular para el borde
+                            )
+                          : null,
+                      child: ClipOval(
+                        child: Image.asset(
+                          avatarAsset,
+                          width: 80, // Ajusta el tamaño del avatar
+                          height: 80, // Ajusta el tamaño del avatar
+                          fit: BoxFit.cover, // Esto asegura que la imagen llene el ClipOval
+                        ),
                       ),
                     ),
                   );
@@ -147,6 +163,7 @@ class _PlayerSelectionScreenState extends ConsumerState<PlayerSelectionScreen> {
                 'Listado de Jugadores',
                 style: TextStyle(
                   fontFamily: 'ReadexPro',
+                  color: Color(0xFF1AA6B7),
                   fontWeight:
                       FontWeight.bold, // Si deseas que el texto esté en negrita
                   fontSize:
@@ -184,11 +201,13 @@ class _PlayerSelectionScreenState extends ConsumerState<PlayerSelectionScreen> {
                 GoRouter.of(context).go('/reglas');
               },
               child: Text(
-                'Ir a las Reglas',
-                style: TextStyle(color: Colors.white), // Letra blanca
+                'Listo',
+                style: TextStyle(
+                  color: Colors.white
+                  ), // Letra blanca
               ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black, // Fondo negro
+                backgroundColor: Color(0xffFF414D), // Fondo negro
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30), // Bordes redondeados
                 ),
