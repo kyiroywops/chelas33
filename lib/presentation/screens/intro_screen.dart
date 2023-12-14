@@ -135,7 +135,7 @@ Widget _buildImage(String assetName) {
 
   Widget _buildBodyWidget(String title, String body, String imageName) {
     return Padding(
-      padding: const EdgeInsets.all(30.0),
+      padding: const EdgeInsets.fromLTRB(30, 8, 30, 30),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -145,7 +145,7 @@ Widget _buildImage(String assetName) {
             style: TextStyle(
               fontSize: 28.0, 
               fontWeight: FontWeight.w900,
-              fontFamily: 'ReadexPro',
+              fontFamily: 'Lexend',
               color:Color(0xFF1AA6B7)
               
               

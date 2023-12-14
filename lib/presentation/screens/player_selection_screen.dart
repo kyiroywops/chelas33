@@ -84,13 +84,8 @@ class _PlayerSelectionScreenState extends ConsumerState<PlayerSelectionScreen> {
                         color: Colors.white
                             .withOpacity(0.5)), // Hint en blanco con opacidad
                     border: InputBorder.none, // Sin borde
-                    focusedBorder: UnderlineInputBorder(
-                        // Borde cuando el TextField está enfocado
-                        ),
-                    enabledBorder: UnderlineInputBorder(
-                      // Borde cuando el TextField está habilitado, pero no enfocado
-                    
-                    ),
+                    focusedBorder: InputBorder.none,
+                    enabledBorder: InputBorder.none,
                     contentPadding: EdgeInsets.symmetric(
                         vertical:
                             10), // Padding vertical para el texto dentro del input
@@ -143,12 +138,15 @@ class _PlayerSelectionScreenState extends ConsumerState<PlayerSelectionScreen> {
             ),
             ElevatedButton(
               onPressed: _addPlayer,
-              child: Text(
-                'Agregar jugador',
-                style: TextStyle(color: Colors.white), // Letra blanca
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Agregar jugador',
+                  style: TextStyle(color: Colors.white), // Letra blanca
+                ),
               ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.black, // Fondo negro
+                backgroundColor: Color(0xff1AA6B7).withOpacity(0.30), // Fondo negro
                 foregroundColor: Colors.white, // Color del texto y del ícono
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30), // Bordes redondeados
@@ -157,7 +155,7 @@ class _PlayerSelectionScreenState extends ConsumerState<PlayerSelectionScreen> {
                     horizontal: 16, vertical: 10), // Padding interior del botón
               ),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 30),
             const Center(
               child: Text(
                 'Listado de Jugadores',
@@ -172,7 +170,7 @@ class _PlayerSelectionScreenState extends ConsumerState<PlayerSelectionScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 30),
             Expanded(
               child: ListView.builder(
                 itemCount: players
@@ -182,10 +180,15 @@ class _PlayerSelectionScreenState extends ConsumerState<PlayerSelectionScreen> {
                     leading: CircleAvatar(
                       backgroundImage: AssetImage(players[index].avatar),
                     ),
-                    title: Text(players[index].name),
+                    title: Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(players[index].name, style: TextStyle(
+                        color: Colors.white
+                      ),),
+                    ),
                     // Icono para eliminar jugadores
                     trailing: IconButton(
-                      icon: Icon(Icons.remove_circle, color: Colors.red),
+                      icon: Icon(Icons.remove_circle, color: Color(0xffFF414D)),
                       onPressed: () {
                         // Llama a la función para eliminar este jugador específico
                         _removePlayer(index);
@@ -200,19 +203,22 @@ class _PlayerSelectionScreenState extends ConsumerState<PlayerSelectionScreen> {
                 // Navegar a la pantalla de reglas
                 GoRouter.of(context).go('/reglas');
               },
-              child: Text(
-                'Listo',
-                style: TextStyle(
-                  color: Colors.white
-                  ), // Letra blanca
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Listo',
+                  style: TextStyle(
+                    color: Colors.white
+                    ), // Letra blanca
+                ),
               ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xffFF414D), // Fondo negro
+                backgroundColor: Color(0xffFF414D).withOpacity(0.85), // Fondo negro
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30), // Bordes redondeados
                 ),
                 padding: EdgeInsets.symmetric(
-                    horizontal: 16, vertical: 10), // Padding interior del botón
+                    horizontal: 44, vertical: 10), // Padding interior del botón
               ),
             )
           ],
