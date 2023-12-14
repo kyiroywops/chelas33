@@ -16,7 +16,7 @@ class _IntroScreenState extends State<IntroScreen> {
 
 Widget _buildImage(String assetName) {
   return ClipRRect(
-    borderRadius: BorderRadius.circular(95.0), // Aumenta este valor para bordes más redondeados
+    borderRadius: BorderRadius.circular(25.0), // Aumenta este valor para bordes más redondeados
     child: Image.asset('assets/images/$assetName', width: 350.0),
   );
 }
@@ -24,10 +24,10 @@ Widget _buildImage(String assetName) {
   @override
   Widget build(BuildContext context) {
     const pageDecoration = PageDecoration(
-      titleTextStyle: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700),
-      bodyTextStyle: TextStyle(fontSize: 19.0),
+      titleTextStyle: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700, color:Color(0xFF1AA6B7)),
+      bodyTextStyle: TextStyle(fontSize: 19.0, color:Color(0xFF1AA6B7)),
       imagePadding: EdgeInsets.zero,
-      pageColor: Color(0xFF8CE7F1),
+      pageColor: Color(0xFF002D40),
     );
 
     return IntroductionScreen(
@@ -35,7 +35,7 @@ Widget _buildImage(String assetName) {
       pages: [
         PageViewModel(
           titleWidget: _buildTitleWidget(0),
-          bodyWidget: _buildBodyWidget('¿Como se juega?', 'Sientense alrededor de una mesa, lleven su trago y coloquen un vaso vacio al medio.', 'reglas/regla1.png'),
+          bodyWidget: _buildBodyWidget('Entorno inicial', 'Sientense alrededor de una mesa, lleven su trago y coloquen un vaso vacio al medio.', 'reglas/regla1.png'),
           decoration: pageDecoration,
         ),
          PageViewModel(
@@ -106,7 +106,7 @@ Widget _buildImage(String assetName) {
       ),
       showNextButton: true,
       showDoneButton: true,
-      globalBackgroundColor: Color(0xFF8CE7F1),
+      globalBackgroundColor: Color(0xFF002D40),
       controlsMargin: EdgeInsets.all(16),
       controlsPadding: EdgeInsets.all(16),
       curve: Curves.fastOutSlowIn,
@@ -116,16 +116,16 @@ Widget _buildImage(String assetName) {
   Widget _buildTitleWidget(int pageIndex) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             GestureDetector(
               onTap: () => _onIntroEnd(),
-              child: Icon(Icons.close, color: Colors.black),
+              child: Icon(Icons.close, color: Colors.white),
             ),
             if (pageIndex == 0) // Asumiendo que el logo solo se muestra en la primera página
-              Image.asset('assets/images/logo.png', width: 100), // Reemplaza con tu logo
+              Image.asset('assets/images/logo.png', width: 30), // Reemplaza con tu logo
           ],
         ),
       ),
@@ -142,14 +142,15 @@ Widget _buildImage(String assetName) {
           style: TextStyle(
             fontSize: 28.0, 
             fontWeight: FontWeight.w900,
-            fontFamily: 'ReadexPro'
+            fontFamily: 'ReadexPro',
+            color:Color(0xFF1AA6B7)
             
             
             
             ),
           textAlign: TextAlign.center,
         ),
-        SizedBox(height: 24), // Espacio entre el título y la imagen
+        SizedBox(height:50), // Espacio entre el título y la imagen
         _buildImage(imageName), // La imagen de la regla
         SizedBox(height: 24), // Espacio entre la imagen y la descripción
         Text(
@@ -157,10 +158,11 @@ Widget _buildImage(String assetName) {
           style: TextStyle(
             fontSize: 19.0,
             fontFamily: 'ReadexPro',
-            fontWeight: FontWeight.w600),
+            fontWeight: FontWeight.w600,
+            color:Color(0xFF1AA6B7)),
           textAlign: TextAlign.center,
+          
         ),
-         SizedBox(height: 24), // Ajusta este espacio según tus necesidades
          // Agrega el botón aquí
       ],
     );
