@@ -26,13 +26,28 @@ class CardAssignmentScreen extends ConsumerWidget {
      bool isChanchoInfladoRule = currentRule?.rule == 'Chancho Inflado';
       int chanchoInfladoCount = ref.watch(chanchoInfladoCountProvider);
 
-   void handleDrawCard() {
-    if (deck.isNotEmpty) {
-      // Saca la carta superior de la baraja y obtiene la regla correspondiente
-      PlayingCard drawnCard = deck.first;
-      CardRule? rule = CardRulesRepository.getRuleForCard(drawnCard.value.toString());
-      ref.read(currentRuleProvider.notifier).state = rule;
       
+
+   void handleDrawCard() {
+  if (deck.isNotEmpty) {
+    // Obtén la carta superior del mazo antes de sacarla
+    PlayingCard drawnCard = deck.first;
+
+    // Convierte el valor de la carta enum a string utilizando el getter 'name'
+    String cardValueAsString = drawnCard.value.name;
+
+    // Obtiene la regla correspondiente a la carta sacada
+    CardRule? rule = CardRulesRepository.getRuleForCard(cardValueAsString);
+
+    // Actualiza el estado con la nueva regla
+    ref.read(currentRuleProvider.notifier).state = rule;
+
+    // Elimina la carta sacada del estado del mazo
+    ref.read(deckProvider.notifier).drawCard();
+
+    // Luego puedes mostrar el diálogo con la regla
+
+        
       // Si la carta es un Kaiser, actualiza el contador
       if (drawnCard.value == CardValue.king) {
         int currentKaisers = ref.read(kaiserCounterProvider.state).state;
@@ -55,25 +70,31 @@ class CardAssignmentScreen extends ConsumerWidget {
         ref.read(chanchoInfladoCountProvider.notifier).state = 0;
       }
     
+    
       
       // Elimina la carta del estado del deckProvider
       ref.read(deckProvider.notifier).drawCard();
      
+     } else {
+      // Manejar el caso de mazo vacío
+      print('El mazo está vacío después de sacar una carta.');
     }
+
+    // La UI debería redibujarse con la carta y la regla correctas en este punto
+  
   }
 
-
-    void showRuleDialog() {
-      if (currentRule != null) {
+    void showRuleDialog(BuildContext context, CardRule rule) {
+      if (rule != null) {
         showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: Text(currentRule.rule),
+              title: Text(rule.rule),
               content: SingleChildScrollView( // Asegura que el contenido sea desplazable si es muy largo
                 child: ListBody(
                   children: <Widget>[
-                    Text(currentRule.message),
+                    Text(rule.message),
                     // Aquí puedes añadir más widgets si necesitas mostrar más información
                   ],
                 ),
@@ -168,7 +189,7 @@ class CardAssignmentScreen extends ConsumerWidget {
               padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
               child: IconButton(
                 icon: Icon(Icons.help_rounded, size: 32),
-                onPressed: showRuleDialog,
+                onPressed: () => showRuleDialog(context, currentRule),
                 color: Colors.white,
               ),
             ),
