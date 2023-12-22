@@ -33,6 +33,9 @@ class CardAssignmentScreen extends ConsumerWidget {
     // Obtén la carta superior del mazo antes de sacarla
     PlayingCard drawnCard = deck.first;
 
+    ref.read(deckProvider.notifier).drawCard();
+
+
     // Convierte el valor de la carta enum a string utilizando el getter 'name'
     String cardValueAsString = drawnCard.value.name;
 
